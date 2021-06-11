@@ -272,10 +272,7 @@ Request:
 ```json
 {
     "title":"Test Title",
-    "description": "Test description",
-    "url": "http://testurl.com",
-    "imageUrl": "http://testurl.com/abc",
-    "publishedAt": "2021/06/10"
+    "category": "Test category"
 }
 ```
 
@@ -289,10 +286,7 @@ Request:
 {
     "id": 1,
     "title": "Test Title",
-    "description": "Test description",
-    "url": "http://testurl.com",
-    "imageUrl": "http://testurl.com/abc",
-    "publishedAt": "2021-06-09T17:00:00.000Z",
+    "category": "Test category",
     "userid": 1,
     "updatedAt": "2021-06-09T19:23:41.351Z",
     "createdAt": "2021-06-09T19:23:41.351Z"
