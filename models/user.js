@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const {hashPassword} = require("../helpers/bcrypt.js");
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -10,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      user.hasMany(models.task, {foreignKey: "userid"})
     }
   };
   user.init({
@@ -19,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'user',
+    hooks: {
+      beforeCreate: (user, opt) => {
+        const hashedPassword = hashPassword(user.password);
+        user.password = hashedPassword;
+      }
+    }
   });
   return user;
 };
