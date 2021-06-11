@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const todoRoute = require('./todos-route')
-const userRoute = require('./users-route')
-const {authentication} = require('../middlewares/auth')
+const taskRoute = require('./tasks-route')
+const {authentication, authorization} = require('../middlewares/auth')
+const userC = require('../controllers/userController')
 
-router.use('/todos', authentication, todoRoute)
-router.use('/users', userRoute)
+router.post('/register', userC.postRegister)
+router.post('/login', userC.postLogin)
+router.use('/tasks', authentication, authorization, taskRoute)
 
 module.exports = router; 
