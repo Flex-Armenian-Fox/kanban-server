@@ -29,13 +29,13 @@ router.post('/login', (req, res, next) => {
         } else {
           throw {
             name: 'LoginError',
-            message: 'Wrong password',
+            message: 'wrong password',
           };
         }
       } else {
         throw {
           name: 'LoginError',
-          message: 'Email is not registered',
+          message: 'email is not registered',
         };
       }
     })

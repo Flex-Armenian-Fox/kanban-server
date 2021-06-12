@@ -6,11 +6,11 @@ const errorHandler = (err, req, res, next) => {
     case 'JsonWebTokenError':
     case 'TokenMissing':
       statusCode = 401;
-      errorMsg = 'Token invalid/missing, please re-login';
+      errorMsg = 'token invalid/missing, please re-login';
       break;
     case 'SequelizeUniqueConstraintError':
       statusCode = 400;
-      errorMsg = `Email ${req.body.email} is already registered`;
+      errorMsg = `email ${req.body.email} is already registered`;
       break;
     case 'SequelizeValidationError':
       statusCode = 400;
@@ -24,9 +24,13 @@ const errorHandler = (err, req, res, next) => {
       statusCode = 404;
       errorMsg = err.message;
       break;
+    case 'Unauthorized':
+      statusCode = 401;
+      errorMsg = err.message;
+      break;
     default:
       statusCode = 500;
-      errorMsg = 'Internal server error';
+      errorMsg = 'internal server error';
       break;
   }
   res.status(statusCode).json({ message: errorMsg });

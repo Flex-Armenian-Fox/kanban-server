@@ -26,7 +26,18 @@ router.get('/', (req, res, next) => {
 
 // router level middleware
 router.get('/:id', (req, res, next) => {
-  res.status(200).json({ success: true, data: req.todo });
+  const { id } = req.params;
+  Task.findOne({ where: { id } })
+    .then((task) => {
+      if (!task) {
+        throw {
+          name: 'NotFound',
+          message: 'task not found',
+        };
+      }
+      res.status(200).json({ success: true, data: task });
+    })
+    .catch((err) => next(err));
 });
 
 router.put('/:id', tasksAuthorization, (req, res, next) => {

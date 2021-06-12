@@ -21,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           notNull: {
-            msg: 'Email cannot be empty/null',
+            msg: 'email cannot be empty/null',
           },
           notEmpty: {
-            msg: 'Email cannot be empty/null',
+            msg: 'email cannot be empty/null',
           },
           isEmail: {
-            msg: 'Email format is wrong',
+            msg: 'email format is wrong',
           },
         },
       },
@@ -36,14 +36,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notNull: {
-            msg: 'Password cannot be empty/null',
+            msg: 'password cannot be empty/null',
           },
           notEmpty: {
-            msg: 'Password cannot be empty/null',
+            msg: 'password cannot be empty/null',
           },
           len: {
             args: [6, 20],
-            msg: 'Password minimum character is 6',
+            msg: 'password minimum character is 6',
           },
         },
       },

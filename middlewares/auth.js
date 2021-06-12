@@ -21,12 +21,22 @@ const authentication = (req, res, next) => {
 
 const tasksAuthorization = (req, res, next) => {
   const { id } = req.params;
-  Task.findOne({ where: { id, UserId: req.userId } })
+
+  Task.findOne({ where: { id } })
     .then((task) => {
       if (!task) {
         throw {
           name: 'NotFound',
-          message: 'Task not found',
+          message: 'task not found',
+        };
+      }
+      return Task.findOne({ where: { id, UserId: req.userId } });
+    })
+    .then((task) => {
+      if (!task) {
+        throw {
+          name: 'Unauthorized',
+          message: 'user unauthorized',
         };
       }
       req.task = task;
