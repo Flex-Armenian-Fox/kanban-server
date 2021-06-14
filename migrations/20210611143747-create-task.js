@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       category: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM('backlog', 'todo', 'doing', 'done')
       },
       createdAt: {
         allowNull: false,
