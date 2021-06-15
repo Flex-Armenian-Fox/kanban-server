@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { authentication, tasksAuthorization } = require('../middlewares/auth');
-const { Task } = require('../models');
+const { Task, User } = require('../models');
 
 // app level middleware
 router.use(authentication);
@@ -17,7 +17,12 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  Task.findAll()
+  Task.findAll({
+    include: {
+      model: User,
+      attributes: ['email'],
+    },
+  })
     .then((result) => {
       res.status(200).json({ success: true, data: result });
     })
