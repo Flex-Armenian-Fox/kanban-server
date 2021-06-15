@@ -1,6 +1,10 @@
 const { User} = require('../models/index')
 const {jwtEncrypt, jwtDecrypt} = require('../helpers/jwt')
 const {compareHash} = require('../helpers/brcypt')
+const {OAuth2Client} = require('google-auth-library');
+const CLIENT_ID = 'temp'
+const client = new OAuth2Client(CLIENT_ID);
+
 
 class Controller{
     static postRegister(req, res, next){
@@ -28,6 +32,29 @@ class Controller{
             .catch((err) =>{
                 next(err)
             })
+        }
+        
+        static gLogin(req, res, next){
+            client.verifyIdToken({
+                idToken: req.body.idToken,
+                audience: GCLIENT_ID,
+            })
+            .then(ticket =>{
+                const payload = ticket.getPayload();
+                const gmail = payload['email'];
+                return User.findOne({where:{email:gmail}})
+            })
+            .then(user => {
+                if (!user){
+                    let randPass = String(Math.random())
+                    return User.create({email:gmail, password:randPass})
+                } else return user
+            })
+            .then(user =>{
+                const token = jwtEncrypt({id: user.id, email: user.email})
+                res.status(200).json({message: "login successful", access_token: token})
+            })
+            .catch (err => {next(err)})    
     }
 }
 

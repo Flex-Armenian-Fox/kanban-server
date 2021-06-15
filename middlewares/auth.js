@@ -10,8 +10,8 @@ const authentication = (req, res, next) =>{
                 if (!user){
                     throw {name: "AuthenticationError", message:"User not Found"}
                 } else {
-                    console.log('a')
                     req.currentUser = {id: user.id}
+                    console.log(req.currentUser)
                     next()
                 }
             }) .catch(err => {
@@ -23,6 +23,7 @@ const authentication = (req, res, next) =>{
 }
 
 const authorization = (req, res, next) => {
+    let id = req.params.id
     Task.findOne({where:{id:id}})
         .then(task =>{
             if (!task) {
@@ -31,8 +32,8 @@ const authorization = (req, res, next) => {
                     message: `task with id ${id} not found`,
                 }
             }
-            if (todo.user_id == req.currentUser.id) {
-                req.target = todo
+            if (task.UserId == req.currentUser.id) {
+                req.target = task
                 next()
             }
             else throw {name:"AuthorizationError"}
