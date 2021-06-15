@@ -2,8 +2,17 @@
 
 const {User} = require('../models')
 const {verifyPassword} = require('../helpers/bcrypt.js')
+const {signToken} = require('../helpers/jwt.js')
+const {OAuth2Client} = require('google-auth-library')
 
 class ControllerUser {
+
+    static googleLogin (req, res, next) {
+
+        const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+
+
+    }
 
     static register (req, res, next) {
         const input = {
@@ -22,6 +31,7 @@ class ControllerUser {
     }
 
     static login (req, res, next) {
+        
         User.findOne({where: {email: req.body.email}})
             .then(user => {
                 if (!user) {
@@ -36,10 +46,16 @@ class ControllerUser {
                            name: 'Not Authorised',
                            message: 'Email/password incorrect'
                        }
-                   } else { // generate JWT
-
-                   }
-
+                    } else { // generate JWT
+                        const payload = {
+                            id: user.id,
+                            email: user.email
+                        }
+                        const token = signToken(payload)
+                        res.status(200).json({
+                            accesstoken: token
+                        })
+                    }
                 }
             })
             .catch(err => {

@@ -9,7 +9,8 @@ function signToken(payload) {
 }
 
 function verifyToken(input_token) {
-
+    const decodedToken = jwt.verify(input_token, secretKey)
+    return decodedToken
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+const getYesterday = require('../helpers/yesterday.js')
+
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
     /**
@@ -29,7 +29,20 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: DataTypes.STRING,
-    due_date: DataTypes.STRING,
+    due_date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      validate: {
+        isDate: {
+          args: true,
+          msg: 'Due date must be in date format'
+        },
+        isAfter: {
+          args: getYesterday(new Date()),
+          msg: 'Due date must be today or after'
+        }
+      }
+    },
     category: {
       type: DataTypes.ENUM('backlog', 'todo', 'doing', 'done'),
       allowNull: false,

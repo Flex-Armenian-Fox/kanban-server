@@ -3,18 +3,21 @@
 function errorHandler(err, req, res, next) {
 
     let httpStatus
-    let errorMsg
+    let errorMsg = err.message
 
     switch (err.name) {
 
         case 'SequelizeValidationError':
             httpStatus = 400
-            errorMsg = err.message
             break
 
         case 'Not Found':
             httpStatus = 404
-            errorMsg = err.message
+            break
+
+        case 'Not Authorised':
+        case 'JsonWebTokenError':
+            httpStatus = 401
             break
 
         default:
