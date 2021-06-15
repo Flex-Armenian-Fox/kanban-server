@@ -4,12 +4,12 @@ const errorHandler = (err, req, res, next) => {
     console.log(err)
     switch (err.name) {
         case "noEmail":
-            statusCode = 400
+            statusCode = 404
             message = "Email not found"
             break;
 
         case "wrongPassword":
-            statusCode = 400
+            statusCode = 401
             message = "Wrong password"
             break;
         
@@ -23,9 +23,9 @@ const errorHandler = (err, req, res, next) => {
             message = "Please Fill Email and Password"
             break;
 
-        case "TodoNotFound":
+        case "TaskNotFound":
             statusCode = 404
-            message = "Todo not Found"
+            message = "Task not Found"
             break;
 
         case "AuthorizationError":
@@ -34,7 +34,7 @@ const errorHandler = (err, req, res, next) => {
             break;
 
         case "JsonWebTokenError":
-            statusCode = 400
+            statusCode = 401
             message= "Login Error"
             break;
         
