@@ -8,8 +8,6 @@ class Controller{
         console.log(task)
         console.log(req.currentUser)
         task.UserId = req.currentUser.id
-        task.deadline = new Date()
-        task.deadline = task.deadline.toISOString()
         Task.create(task, {returning: true})
             .then(r => {
                 console.log(r)

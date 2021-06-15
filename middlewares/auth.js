@@ -8,7 +8,7 @@ const authentication = (req, res, next) =>{
         User.findByPk(dataDecoded.id)
             .then(user => {
                 if (!user){
-                    throw {name: "AuthenticationError", message:"User not Found"}
+                    throw {name: "JsonWebTokenError"}
                 } else {
                     req.currentUser = {id: user.id}
                     console.log(req.currentUser)
