@@ -76,6 +76,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
+    hooks: {
+      beforeValidate: (user, options) => {
+        if (user.due_date === '') {
+          user.due_date = null
+        }
+      }
+    },
     sequelize,
     modelName: 'Task',
   });

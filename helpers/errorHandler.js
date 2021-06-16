@@ -8,6 +8,7 @@ function errorHandler(err, req, res, next) {
     switch (err.name) {
 
         case 'SequelizeValidationError':
+        case 'UniqueConstraintError':
             httpStatus = 400
             break
 

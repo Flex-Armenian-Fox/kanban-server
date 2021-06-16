@@ -11,7 +11,44 @@ class ControllerUser {
 
         const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
+        let emailToRegister = ''
+        const {google_access_token} = req.headers
 
+        client.verifyIdToken({
+            idToken: google_access_token,
+            audience: process.env.GOOGLE_CLIENT_ID
+        })
+            .then(ticket => {
+                return ticket.getPayload()
+            })
+            .then(payload => {
+                emailToRegister = payload.email
+                return User.findOne({where: {email: payload.email}})
+            })
+            .then(user => {
+                if (!user) { 
+                    return User.create({
+                        email: emailToRegister,
+                        password: Math.random().toString(36).slice(-8)
+                    })
+                } else {
+                    return user
+                }
+            })
+            .then(user => {
+                const token = signToken({
+                    id: user.id,
+                    email: user.email
+                })
+                console.log(token)
+                return res.status(200).json({
+                    accesstoken: token
+                })
+            })
+            .catch(err => {
+                console.log('MASUK ERROR GOOGLE SIGN IN')
+                next(err)
+            })
     }
 
     static register (req, res, next) {
@@ -19,11 +56,22 @@ class ControllerUser {
             email: req.body.email,
             password: req.body.password
         }
-        User.create(input)
+        User.findOrCreate({
+            where: {email: req.body.email},
+            defaults: input
+        })
             .then(user => {
-                res.status(201).json({
-                    message: `User with email ${user.email} successfully created!`
-                })
+                console.log('INI USER[1]', user[1])
+                if (user[1] === false) {
+                    throw {
+                        name: 'UniqueConstraintError',
+                        message: 'Email already registered'
+                    }
+                } else {
+                    res.status(201).json({
+                        message: `User with email ${user[0].email} successfully created`
+                    })
+                }
             })
             .catch(err => {
                 next(err)

@@ -5,7 +5,7 @@ const {User, Task} = require('../models')
 class ControllerTask {
 
     static showAll (req, res, next) {
-        Task.findAll()
+        Task.findAll({order: [['id', 'ASC']]})
             .then(tasks => {
                 res.status(200).json({tasks})
             })
