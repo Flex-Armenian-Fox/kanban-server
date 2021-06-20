@@ -12,6 +12,15 @@ router.post('/', (req, res, next) => {
     category,
     UserId: req.userId,
   })
+    .then((result) =>
+      Task.findOne({
+        where: result.id,
+        include: {
+          model: User,
+          attributes: ['email'],
+        },
+      })
+    )
     .then((result) => res.status(201).json({ message: 'created', data: result }))
     .catch((err) => next(err));
 });

@@ -228,7 +228,10 @@ Add new task to Kanban
           "title": "<task title>",
           "category": "<task category: backlog/todo/doing/done>",
           "createdAt": "2021-05-24T15:01:21.735Z",
-          "updatedAt": "2021-05-24T15:01:21.735Z"
+          "updatedAt": "2021-05-24T15:01:21.735Z",
+          "User": {
+            "email": "<user email>"
+          }
         }
     },
     ```
@@ -262,7 +265,10 @@ Add new task to Kanban
     "title": "Make kanban server",
     "category": "backlog",
     "createdAt": "2021-05-24T15:01:21.735Z",
-    "updatedAt": "2021-05-24T15:01:21.735Z"
+    "updatedAt": "2021-05-24T15:01:21.735Z",
+    "User": {
+      "email": "user1@mail.com"
+    }
   }
   ```
 
@@ -297,14 +303,20 @@ Show all tasks in Kanban
         "title": "<task title>",
         "category": "<task category: backlog/todo/doing/done>",
         "createdAt": "2021-05-24T15:01:21.735Z",
-        "updatedAt": "2021-05-24T15:01:21.735Z"
+        "updatedAt": "2021-05-24T15:01:21.735Z",
+        "User": {
+          "email": "<user email>"
+        }
       },
       {
         "id": "<id number>",
         "title": "<task title>",
         "category": "<task category: backlog/todo/doing/done>",
         "createdAt": "2021-05-24T15:01:21.735Z",
-        "updatedAt": "2021-05-24T15:01:21.735Z"
+        "updatedAt": "2021-05-24T15:01:21.735Z",
+        "User": {
+          "email": "<user email>"
+        }
       }
     ]
     ```
