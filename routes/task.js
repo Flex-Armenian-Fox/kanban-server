@@ -5,6 +5,7 @@ const {authorization} = require('../middlewares/auth.js')
 
 router.get('/', TaskController.toList)
 router.post('/', TaskController.addData)
+router.put('/:id', authorization, TaskController.updateData)
 router.delete('/:id', authorization, TaskController.deleteData)
 
 module.exports = router;

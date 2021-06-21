@@ -1,10 +1,11 @@
 'use strict'
 
-const {task} = require('../models/index.js');
+const {task, user} = require('../models/index.js');
 
 class taskController{
     static toList(req, res, next){
         task.findAll({
+            include: [user],
             order: ['id'],
         })
         .then(result => {
@@ -25,6 +26,26 @@ class taskController{
         .catch(err => {
             next(err)
         })   
+    }
+
+    static updateData(req, res, next){
+        task.update(req.body, {
+            where: {
+                id: req.params.id
+            },
+            returning: true
+        })
+        .then(result => {
+            console.log(result[0])
+            if (result[0] === 0){
+                res.status(404).json("Data Not Found")
+            } else {
+                res.status(200).json(result[1][0])
+            }
+        })
+        .catch(err => {
+            next(err)
+        })
     }
 
     static deleteData(req, res, next){
