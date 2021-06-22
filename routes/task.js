@@ -31,6 +31,7 @@ router.get('/', (req, res, next) => {
       model: User,
       attributes: ['email'],
     },
+    order: [['updatedAt']],
   })
     .then((result) => {
       res.status(200).json({ success: true, data: result });
