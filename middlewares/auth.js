@@ -4,6 +4,8 @@ const {User, Task} = require("../models")
 const authentication = (req, res, next) =>{
     try{
         const {access_token} = req.headers
+        console.log(req.header)
+        console.log(access_token)
         const dataDecoded = jwtDecrypt(access_token)
         User.findByPk(dataDecoded.id)
             .then(user => {
@@ -24,8 +26,10 @@ const authentication = (req, res, next) =>{
 
 const authorization = (req, res, next) => {
     let id = req.params.id
+    console.log('authorization')
     Task.findOne({where:{id:id}})
         .then(task =>{
+            console.log('auth')
             if (!task) {
                 throw {
                     name: "TaskNotFound",

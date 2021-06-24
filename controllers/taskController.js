@@ -1,9 +1,10 @@
-const {Task} = require('../models/index')
+const {Task, User} = require('../models/index')
 const {jwtEncrypt, jwtDecrypt} = require('../helpers/jwt')
 const {compareHash} = require('../helpers/brcypt')
 
 class Controller{
     static postTask(req, res, next){
+        console.log('posting task')
         let task = req.body
         console.log(task)
         console.log(req.currentUser)
@@ -17,8 +18,16 @@ class Controller{
     }
 
     static getTask(req, res, next){
-        Task.findAll()
+        Task.findAll({include:[{
+            model: User,
+            attributes: ["alias", "id"]
+            }]
+        })
             .then(taskData => {
+                // console.log(taskData)
+                taskData.forEach(el => {
+                    if(el.User.id == req.currentUser.id) {el.dataValues.editable = true}
+                })
                 res.status(200).json(taskData)
             })
             .catch(err => {next(err)})
@@ -33,8 +42,9 @@ class Controller{
     }
     
     static putTask(req, res, next){
+        console.log('putting task')
         let data = req.body
-        data.deadline = new Date()
+        console.log(req.body)
         Task.update(data, {where: {id:req.params.id}, returning:true})
             .then(results =>{
                 res.status(200).json(results[1])

@@ -1,13 +1,14 @@
 const { User} = require('../models/index')
 const {jwtEncrypt, jwtDecrypt} = require('../helpers/jwt')
 const {compareHash} = require('../helpers/brcypt')
-const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = 'temp'
-const client = new OAuth2Client(CLIENT_ID);
+const {OAuth2Client} = require('google-auth-library')
+const GCLIENT_ID = process.env.GCLIENT_ID
+const client = new OAuth2Client(GCLIENT_ID);
 
 
 class Controller{
     static postRegister(req, res, next){
+        console.log('test')
         if (!req.body.email || !req.body.password) throw {name: "FillEmailPassword"}
         User.create(req.body)
             .then(() => {
@@ -35,14 +36,15 @@ class Controller{
         }
         
         static gLogin(req, res, next){
+            let gmail = ""
             client.verifyIdToken({
                 idToken: req.body.idToken,
                 audience: GCLIENT_ID,
             })
             .then(ticket =>{
                 const payload = ticket.getPayload();
-                const gmail = payload['email'];
-                return User.findOne({where:{email:gmail}})
+                gmail = payload['email'];
+                return User.findOne({where:{email: gmail}})
             })
             .then(user => {
                 if (!user){

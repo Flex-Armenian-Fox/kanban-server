@@ -36,11 +36,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    alias: {
+      type: DataTypes.STRING
+    }
   }, {
     hooks:{
       beforeCreate: user =>{
         user.password = hash(user.password)
         user.email = user.email.toLowerCase()
+        if (!user.alias) {user.alias = user.email}
       }
     },
     sequelize,
