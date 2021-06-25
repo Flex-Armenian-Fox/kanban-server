@@ -7,6 +7,8 @@ const { OAuth2Client } = require('google-auth-library');
 const privateKey = process.env.PRIVATE_KEY;
 const CLIENT_ID = process.env.CLIENT_ID;
 
+router.get('/', (req, res) => res.send('OK'));
+
 router.use('/tasks', Task);
 
 router.post('/register', (req, res, next) => {
