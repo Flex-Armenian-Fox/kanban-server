@@ -25,7 +25,7 @@ router.post('/login', (req, res, next) => {
       if (user) {
         if (compareHash(req.body.password, user.password)) {
           const access_token = jwt.sign({ id: user.id }, privateKey);
-          res.status(201).json({ success: true, access_token });
+          res.status(201).json({ success: true, id: user.id, access_token });
         } else {
           throw {
             name: 'LoginError',
