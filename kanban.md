@@ -15,7 +15,7 @@
 * **Data Params**
 
     **Required:**<br />
-    **Body:** `{email: [email], password: [password]}`
+    **Body:** `{email: [email], password: [password], alias:[alias]}`
 
 * **Success Response:**
 
@@ -118,22 +118,23 @@
         {
             "id": [id],
             "name": [name],
-            "description": [description],
             "deadline": [deadline],
             "category": [category],
             "UserId": [uid],
             "updatedAt": [Update Date],
-            "createdAt": [Create Date]
+            "createdAt": [Create Date],
+            "user": {[alias: alias]}
         },
         {
             "id": [id],
             "name": [name],
-            "description": [description],
             "deadline": [deadline],
             "category": [category],
             "UserId": [uid],
             "updatedAt": [Update Date],
-            "createdAt": [Create Date]
+            "createdAt": [Create Date],
+            "user": {[alias: alias]},
+            "editable: true
         }
     ]
     ```
@@ -169,7 +170,7 @@
     **Headers:** `{access_token: [token]}` <br />
 
     **Optional:**<br />
-    **Body:** `{deadline: [deadline], description: [description]}` <br />
+    **Body:** `{deadline: [deadline]}` <br />
 
 * **Success Response:**
 
@@ -180,7 +181,6 @@
     {
         "id": [id],
         "name": [name],
-        "description": [description],
         "deadline": [deadline],
         "category": [category],
         "UserId": [uid],
@@ -235,7 +235,7 @@
     **Headers:** `{access_token: [token]}` <br />
 
     **Optional:**<br />
-    **Body:** `{name: [name], category: [category], deadline: [deadline], description: [description]}` <br />
+    **Body:** `{name: [name], category: [category], deadline: [deadline]}` <br />
 
 * **Success Response:**
 
@@ -246,7 +246,6 @@
     {
         "id": [id],
         "name": [name],
-        "description": [description],
         "deadline": [deadline],
         "category": [category],
         "UserId": [uid],
@@ -296,7 +295,7 @@
     **Headers:** `{access_token: [token]}` <br />
 
     **Optional:**<br />
-    **Body:** `{name: [name], category: [category], deadline: [deadline], description: [description]}` <br />
+    **Body:** `{name: [name], category: [category], deadline: [deadline]}` <br />
 
 * **Success Response:**
 
@@ -307,7 +306,6 @@
     {
         "id": [id],
         "name": [name],
-        "description": [description],
         "deadline": [deadline],
         "category": [category],
         "UserId": [uid],
