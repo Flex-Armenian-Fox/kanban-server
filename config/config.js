@@ -8,6 +8,6 @@ module.exports = {
     "dialect": "postgres"
   },
   "production": {
-    "config.use_env_variable": "DATABASE_URL"
+    "use_env_variable": DATABASE_URL
   }
 }
