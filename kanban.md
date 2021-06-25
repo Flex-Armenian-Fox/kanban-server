@@ -15,7 +15,9 @@
 * **Data Params**
 
     **Required:**<br />
-    **Body:** `{email: [email], password: [password], alias:[alias]}`
+    **Body:** `{email: [email], password: [password]}`
+    **Optional:**<br />
+    **Body:** `{alias: [alias]}`
 
 * **Success Response:**
 
@@ -65,6 +67,7 @@
 
     **Required:**<br />
     **Body:** `{email: [email], password: [password]}`
+    
 
 * **Success Response:**
 
