@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "karen",
+    "username": "KD",
     "password": "postgres",
     "database": "kanban",
     "host": "127.0.0.1",
+    "port": "5431",
     "dialect": "postgres"
   }
 }

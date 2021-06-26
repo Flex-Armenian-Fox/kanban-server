@@ -8,6 +8,7 @@ const ControllerTask = require('../controller/controller-task.js')
 
 route.get('/', ControllerTask.showAll)
 route.post('/', ControllerTask.createNew)
+route.get('/:id', ControllerTask.showOne)
 
 // need AUTHORISATION as router level middleware
 route.put('/:id', authorization, ControllerTask.putOne)

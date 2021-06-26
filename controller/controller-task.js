@@ -14,6 +14,16 @@ class ControllerTask {
             })
     }
 
+    static showOne (req, res, next) {
+        Task.findOne({where: {id: +req.params.id}})
+            .then(task => {
+                res.status(200).json({task})
+            })
+            .catch(err => {
+                next(err)
+            })
+    }
+
     static createNew (req, res, next) {
         const input = {
             title: req.body.title,

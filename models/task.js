@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     due_date: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
       validate: {
         isDate: {
           args: true,
@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         isAfter: {
           args: getYesterday(new Date()),
           msg: 'Due date must be today or after'
+        },
+        notNull: {
+          args: true,
+          msg: 'Due date cannot be null'
         }
       }
     },

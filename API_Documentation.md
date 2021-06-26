@@ -8,6 +8,7 @@
 | POST   | /users/login          | Log a `User` in manually                               |
 | POST   | /users/googleLogin    | Log a `User` in through Google's credentials           |
 | GET    | /tasks/               | Display all `Task` available                           |
+| GET    | /tasks/:id            | Display one `Task` based on its ID                     |
 | POST   | /tasks/               | Create a new `Task`                                    |
 | PUT    | /tasks/:id            | Update all fields/columns of a `Task` based on its ID  |
 | PATCH  | /tasks/:id            | Update the category field of `Task` based on its ID    |
@@ -230,6 +231,62 @@ Display all `Task` available.
                     "UserId": 2,
                     "createdAt": "2021-06-15T14:48:20.375Z",
                     "updatedAt": "2021-06-15T14:48:20.375Z"
+                }
+            ]
+        }
+    ```
+
+* **ERROR RESPONSE**
+
+    - Code: `401`<br/>
+    Content:
+
+    ```json
+
+        {
+            "message": "jwt must be provided"
+        }
+
+    ```
+
+    - Code: `500`<br/>
+    Content:
+
+    ```json
+
+        {
+            "message": "Internal server error"
+        }
+
+    ```
+<br>
+============
+
+### **TASKS > DISPLAY ONE TASK**
+Display one `Task` based on its ID  .
+
+* **URL**  `/tasks/`
+* **METHOD**  `GET`
+* **URL PARAMS**  Required: `id=[integer]`
+* **DATA PARAMS** none
+
+* **SUCCESS RESPONSE**
+
+    - Code: `200`<br/>
+    Content:
+
+    ```json
+        {
+            "task": [
+                {
+                    "id": 1,
+                    "title": "Bayar invoice",
+                    "description": "internet, credit card",
+                    "due_date": "2021-07-20 00:00:00.000 +00:00",
+                    "category": "backlog",
+                    "UserId": 1,
+                    "createdAt": "2021-06-15T10:45:56.955Z",
+                    "updatedAt": "2021-06-15T12:46:31.148Z"
                 }
             ]
         }
