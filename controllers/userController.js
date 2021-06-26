@@ -68,6 +68,7 @@ class UserController{
     }
 
     static loginGoogle(req, res, next){
+        console.log("MASUK LOGIN GOOGLE")
         console.log("token ", req.body)
         const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
         const {token} = req.body;
